@@ -38,7 +38,7 @@ def scrape(page):
 
             next_button(page)
             # page.get_by_text("Next").click()
-            page.get_by_text("Next", exact=True).click()
+            # page.get_by_text("Next", exact=True).click()
             no_of_next +=1
             page.wait_for_timeout(2000)
         except Exception as e:
@@ -48,9 +48,10 @@ def scrape(page):
     
     links = list(set(links))
 
-    # for link in links:
-    #     if "webcal" in link:
-    #         links.remove(link)
+    for link in links[:]:
+        if "share" in link or "mailto:?&subject" in link or "sharer" in link or "shareArticle" in link  :
+            print("removing share link")
+            links.remove(link)
         
         
     return links
