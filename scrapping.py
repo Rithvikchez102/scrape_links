@@ -9,7 +9,9 @@ def scrape(page):
     # page.evaluate(get_links_script)
     url = input("enter URL : ")
     page.goto(url)
+    # page.click(xpath='//button[@title="list view"]')
     
+
     no_of_next = 0
     links_length = 0
     links = []
@@ -17,7 +19,7 @@ def scrape(page):
     pattern_exclude = input("enter pattern to exclude : ")
     while True:
         try:
-            page.wait_for_timeout(1000)
+            page.wait_for_timeout(60000)
             page.evaluate(get_links_script)
             temp_links = page.evaluate(
                 """([arg1, arg2]) => {
@@ -40,7 +42,7 @@ def scrape(page):
             # page.get_by_text("Next").click()
             # page.get_by_text("Next", exact=True).click()
             no_of_next +=1
-            page.wait_for_timeout(2000)
+            page.wait_for_timeout(60000)
         except Exception as e:
             print(e)
             break
@@ -49,7 +51,7 @@ def scrape(page):
     links = list(set(links))
 
     for link in links[:]:
-        if "share" in link or "mailto:?&subject" in link or "sharer" in link or "shareArticle" in link  :
+        if "nightlife" in link or "bar" in link or "band" in link:
             print("removing share link")
             links.remove(link)
         
